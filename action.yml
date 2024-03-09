@@ -42,11 +42,8 @@ runs:
 
     - name: To sort, or not to sort, that is the question
       shell: bash
-      env:
-        INPUT_SORT_BY: ${{ inputs.sort-by }}
-        INPUT_SORT_BY_AUTO_THRESHOLD: ${{ inputs.sort-by-auto-threshold }}
       run: |
-        if [[ ("$INPUT_SORT_BY" == "auto" && ${{ steps.num-contrib.outputs.NUM_CONTRIB }} -gt $INPUT_SORT_BY_AUTO_THRESHOLD) || "$INPUT_SORT_BY" == "name" ]]; then
+        if [[ ("${{ inputs.sort-by }}" == "auto" && ${{ steps.num-contrib.outputs.NUM_CONTRIB }} -gt ${{ inputs.sort-by-auto-threshold }}) || "${{ inputs.sort-by }}" == "name" ]]; then
           cat CONTRIBUTORS |sort -uf >CONTRIBUTORS.sorted
           mv CONTRIBUTORS.sorted CONTRIBUTORS
         fi
